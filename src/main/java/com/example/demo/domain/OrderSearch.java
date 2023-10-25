@@ -1,5 +1,11 @@
 package com.example.demo.domain;
 
+import org.springframework.data.jpa.domain.Specification;
+
+import static com.example.demo.domain.OrderSpec.memberNameLike;
+import static com.example.demo.domain.OrderSpec.orderStatusEq;
+import static org.springframework.data.jpa.domain.Specification.where;
+
 /**
  * Created by holyeye on 2014. 3. 15..
  */
@@ -23,5 +29,10 @@ public class OrderSearch {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public Specification<Order> toSpecification() {
+        return where(memberNameLike(memberName))
+                .and(orderStatusEq(orderStatus));
     }
 }
